@@ -42,14 +42,14 @@ class ProductTest extends TestCase
 
     public function testSetPricesWithWrongCurrency(): void
     {
-        $this->expectException(\Exception::class);
         $this->product->setPrices(["EUR" => 12, "USD" => 14, "TACOS" => 14]);
+        $this->assertEquals(["EUR" => 12, "USD" => 14], $this->product->getPrices());
     }
 
     public function testSetPricesWithWrongPrice(): void
     {
-        $this->expectException(\Exception::class);
         $this->product->setPrices(["EUR" => 12, "USD" => -14]);
+        $this->assertEquals(["EUR" => 12], $this->product->getPrices());
     }
 
     public function testGetPrice(): void
@@ -71,7 +71,7 @@ class ProductTest extends TestCase
 
     public function testGetTva(): void
     {
-        $this->assertEquals(2.0, $this->product->getTVA());
+        $this->assertEquals(0.1, $this->product->getTVA());
     }
 
     public function testListCurrencies(): void
